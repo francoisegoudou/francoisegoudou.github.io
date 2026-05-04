@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Françoise Goudou – Conseil & Art</title>
+  <style>
+    :root {
+      --bg-deep: #0f0e0b;
+      --bg-card: #1a1812;
+      --kaki: #8a7a4a;
+      --kaki-light: #b5a46a;
+      --wine: #6b2737;
+      --wine-light: #8f3347;
+      --blue: #4a6b8a;
+      --blue-light: #6a8fad;
+      --cream: #e8dfc0;
+      --cream-dim: #a89e80;
+      --border: rgba(138,122,74,0.25);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: var(--bg-deep);
+      color: var(--cream);
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(15,14,11,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-size: 1.1rem;
+      letter-spacing: .15em;
+      color: var(--kaki-light);
+      text-transform: uppercase;
+    }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--cream-dim);
+      text-decoration: none;
+      font-size: .85rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      transition: color .3s;
+    }
+    .nav-links a:hover { color: var(--kaki-light); }
+
+    .nav-burger {
+      display: none;
+      flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-burger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--cream); border-radius: 2px;
+      transition: all .3s;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 30% 40%, rgba(107,39,55,.18) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 70% 60%, rgba(74,107,138,.15) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(138,122,74,.1) 0%, transparent 60%);
+    }
+
+    .hero-tag {
+      font-size: .75rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--kaki);
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .hero-name {
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: normal;
+      letter-spacing: .05em;
+      color: var(--cream);
+      line-height: 1.1;
+      position: relative;
+    }
+
+    .hero-name span { color: var(--kaki-light); }
+
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: clamp(.95rem, 2vw, 1.2rem);
+      color: var(--cream-dim);
+      max-width: 540px;
+      font-style: italic;
+      position: relative;
+    }
+
+    .hero-divider {
+      width: 60px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--kaki), transparent);
+      margin: 2.5rem auto;
+      position: relative;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      padding: .9rem 2.5rem;
+      border: 1px solid var(--kaki);
+      color: var(--kaki-light);
+      text-decoration: none;
+      font-size: .85rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      transition: all .35s;
+      position: relative;
+    }
+    .hero-cta:hover {
+      background: var(--kaki);
+      color: var(--bg-deep);
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 2rem; }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: .72rem;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--kaki);
+      margin-bottom: .8rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: normal;
+      color: var(--cream);
+      margin-bottom: 1rem;
+    }
+
+    .section-intro {
+      color: var(--cream-dim);
+      max-width: 600px;
+      font-style: italic;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg-card); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-frame {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 6rem;
+      background: linear-gradient(135deg, rgba(138,122,74,.08), rgba(107,39,55,.08));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-frame::after {
+      content: '';
+      position: absolute;
+      top: 12px; left: 12px; right: -12px; bottom: -12px;
+      border: 1px solid rgba(138,122,74,.15);
+      pointer-events: none;
+    }
+
+    .about-text h3 {
+      font-size: 1.4rem;
+      font-weight: normal;
+      color: var(--kaki-light);
+      margin-bottom: 1.2rem;
+    }
+
+    .about-text p {
+      color: var(--cream-dim);
+      margin-bottom: 1rem;
+    }
+
+    .about-tags {
+      display: flex; flex-wrap: wrap; gap: .6rem;
+      margin-top: 1.8rem;
+    }
+
+    .about-tag {
+      padding: .3rem .9rem;
+      border: 1px solid var(--border);
+      font-size: .75rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--cream-dim);
+    }
+
+    /* ── SERVICES ── */
+    #services { background: var(--bg-deep); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 2.2rem;
+      transition: border-color .35s, transform .35s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--wine), var(--kaki), var(--blue));
+      opacity: 0;
+      transition: opacity .35s;
+    }
+
+    .service-card:hover { border-color: rgba(138,122,74,.5); transform: translateY(-4px); }
+    .service-card:hover::before { opacity: 1; }
+
+    .service-card.featured {
+      border-color: var(--kaki);
+      grid-column: 1 / -1;
+    }
+
+    .service-card.featured::before { opacity: 1; }
+
+    .service-icon { font-size: 1.6rem; display: block; margin-bottom: 1rem; }
+
+    .service-name {
+      font-size: 1.15rem;
+      font-weight: normal;
+      color: var(--cream);
+      margin-bottom: .8rem;
+    }
+
+    .service-desc {
+      font-size: .9rem;
+      color: var(--cream-dim);
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .service-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .service-price {
+      font-size: 1.8rem;
+      color: var(--kaki-light);
+      line-height: 1;
+    }
+    .service-price sup { font-size: .9rem; }
+
+    .service-price-multi {
+      display: flex; flex-direction: column; gap: .3rem;
+    }
+    .price-row {
+      display: flex; justify-content: space-between; gap: 2rem;
+      font-size: .85rem; color: var(--cream-dim);
+    }
+    .price-row strong { color: var(--kaki-light); font-style: normal; }
+
+    .service-duration {
+      font-size: .75rem;
+      color: var(--cream-dim);
+      letter-spacing: .08em;
+    }
+
+    .service-badge {
+      display: inline-block;
+      background: var(--wine);
+      color: var(--cream);
+      font-size: .68rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      padding: .25rem .7rem;
+      margin-bottom: 1rem;
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .featured-includes h4 {
+      font-size: .8rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--kaki);
+      margin-bottom: 1rem;
+    }
+
+    .featured-includes ul {
+      list-style: none;
+      display: flex; flex-direction: column; gap: .5rem;
+    }
+
+    .featured-includes li {
+      font-size: .88rem;
+      color: var(--cream-dim);
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .featured-includes li::before {
+      content: '◆';
+      position: absolute; left: 0;
+      font-size: .5rem;
+      color: var(--kaki);
+      top: .35rem;
+    }
+
+    .featured-price {
+      text-align: right;
+    }
+
+    .featured-price .big-price {
+      font-size: 3rem;
+      color: var(--kaki-light);
+      line-height: 1;
+    }
+
+    .featured-price .original {
+      font-size: .85rem;
+      color: var(--cream-dim);
+      text-decoration: line-through;
+      margin-top: .3rem;
+    }
+
+    .featured-price .economy {
+      font-size: .8rem;
+      color: var(--wine-light);
+      margin-top: .2rem;
+    }
+
+    .btn-book {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: .8rem 2rem;
+      background: var(--kaki);
+      color: var(--bg-deep);
+      text-decoration: none;
+      font-size: .8rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      transition: background .3s;
+    }
+    .btn-book:hover { background: var(--kaki-light); }
+
+    /* ── TAROT ── */
+    .tarot-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .tarot-option {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 1.6rem;
+      text-align: center;
+      transition: border-color .3s;
+    }
+
+    .tarot-option:hover { border-color: rgba(107,39,55,.5); }
+
+    .tarot-option h4 {
+      font-size: .85rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--kaki);
+      margin-bottom: .5rem;
+    }
+
+    .tarot-option .t-price {
+      font-size: 2rem;
+      color: var(--cream);
+      margin: .3rem 0;
+    }
+
+    .tarot-option .t-duration {
+      font-size: .75rem;
+      color: var(--cream-dim);
+    }
+
+    /* ── PROCESS ── */
+    #process { background: var(--bg-card); }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      counter-reset: steps;
+    }
+
+    .step {
+      counter-increment: steps;
+      position: relative;
+      padding-top: 3rem;
+    }
+
+    .step::before {
+      content: counter(steps, decimal-leading-zero);
+      position: absolute; top: 0; left: 0;
+      font-size: 2.5rem;
+      color: rgba(138,122,74,.25);
+      line-height: 1;
+      font-style: italic;
+    }
+
+    .step h4 {
+      font-size: .95rem;
+      font-weight: normal;
+      color: var(--cream);
+      margin-bottom: .5rem;
+    }
+
+    .step p {
+      font-size: .85rem;
+      color: var(--cream-dim);
+      font-style: italic;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg-deep); text-align: center; }
+
+    .contact-inner { max-width: 600px; margin: 0 auto; }
+
+    .contact-email {
+      display: inline-block;
+      margin-top: 1rem;
+      color: var(--kaki-light);
+      text-decoration: none;
+      font-size: 1.1rem;
+      letter-spacing: .08em;
+      border-bottom: 1px solid rgba(138,122,74,.3);
+      padding-bottom: .2rem;
+      transition: border-color .3s;
+    }
+    .contact-email:hover { border-color: var(--kaki-light); }
+
+    .contact-btns {
+      display: flex; gap: 1rem; justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2.5rem;
+    }
+
+    .btn-primary {
+      padding: .9rem 2.2rem;
+      background: var(--kaki);
+      color: var(--bg-deep);
+      text-decoration: none;
+      font-size: .82rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      transition: background .3s;
+    }
+    .btn-primary:hover { background: var(--kaki-light); }
+
+    .btn-secondary {
+      padding: .9rem 2.2rem;
+      border: 1px solid var(--wine);
+      color: var(--wine-light);
+      text-decoration: none;
+      font-size: .82rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      transition: all .3s;
+    }
+    .btn-secondary:hover { background: var(--wine); color: var(--cream); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer p { font-size: .78rem; color: var(--cream-dim); }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; flex-direction: column; gap: 1.5rem;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(15,14,11,.97); padding: 2rem 1.5rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-links.open { display: flex; }
+      .nav-burger { display: flex; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-frame { aspect-ratio: 4/3; font-size: 4rem; }
+
+      .featured-grid { grid-template-columns: 1fr; }
+      .featured-price { text-align: left; }
+
+      .tarot-options { grid-template-columns: 1fr; }
+
+      footer { flex-direction: column; text-align: center; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Françoise Goudou</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Approche</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-tag">Conseil · Arts divinatoires · Coaching artistique</p>
+  <h1 class="hero-name">Françoise<br><span>Goudou</span></h1>
+  <p class="hero-sub">Clarté, timing et direction — pour les décisions qui comptent vraiment.</p>
+  <div class="hero-divider"></div>
+  <a href="https://cal.com" target="_blank" rel="noopener" class="hero-cta">Prendre rendez-vous</a>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-frame">☯</div>
+      </div>
+      <div class="about-text reveal">
+        <p class="section-label">À propos</p>
+        <h2 class="section-title">Une approche à la croisée des savoirs</h2>
+        <p>Je conjugue les arts divinatoires chinois — BaZi, Qi Men Dun Jia, Feng Shui — avec le Tarot de Marseille et le coaching artistique pour vous offrir une lecture précise de votre situation et des leviers concrets d'action.</p>
+        <p>Chaque consultation est préparée avec soin. Mon rôle n'est pas de prédire, mais de vous donner la clarté et le timing pour avancer avec justesse.</p>
+        <div class="about-tags">
+          <span class="about-tag">BaZi</span>
+          <span class="about-tag">Qi Men Dun Jia</span>
+          <span class="about-tag">Feng Shui</span>
+          <span class="about-tag">Tarot de Marseille</span>
+          <span class="about-tag">Art Coaching</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <p class="section-label reveal">Services</p>
+    <h2 class="section-title reveal">Consultations & accompagnement</h2>
+    <p class="section-intro reveal">Des formats adaptés à chaque besoin — d'une consultation ciblée à une transformation en profondeur.</p>
+
+    <div class="services-grid">
+
+      <!-- BaZi -->
+      <article class="service-card reveal">
+        <span class="service-icon">☰</span>
+        <h3 class="service-name">Consultation BaZi</h3>
+        <p class="service-desc">Découvrez votre carte énergétique personnelle couplée aux tendances de l'année. Clarté, timing et direction en 60 minutes (+ 1h de préparation).</p>
+        <div class="service-meta">
+          <div class="service-price"><sup>€</sup>170</div>
+          <div class="service-duration">60 min · Visio ou présentiel</div>
+        </div>
+      </article>
+
+      <!-- Qi Men -->
+      <article class="service-card reveal">
+        <span class="service-icon">◈</span>
+        <h3 class="service-name">Qi Men Dun Jia</h3>
+        <p class="service-desc">Révélez le timing idéal pour vos décisions grâce à l'art stratégique chinois de l'espace et du temps.</p>
+        <div class="service-meta">
+          <div class="service-price"><sup>€</sup>90</div>
+          <div class="service-duration">40 min · Visio</div>
+        </div>
+      </article>
+
+      <!-- Feng Shui -->
+      <article class="service-card reveal">
+        <span class="service-icon">⬡</span>
+        <h3 class="service-name">Feng Shui</h3>
+        <p class="service-desc">Harmonisez votre espace de vie ou de travail pour activer énergie, prospérité et bien-être. Étude de plans incluse (+ 1h de préparation).</p>
+        <div class="service-meta">
+          <div class="service-price"><sup>€</sup>320</div>
+          <div class="service-duration">60 min · Visio ou présentiel</div>
+        </div>
+      </article>
+
+      <!-- Art Coaching -->
+      <article class="service-card reveal">
+        <span class="service-icon">✦</span>
+        <h3 class="service-name">Art Coaching</h3>
+        <p class="service-desc">Débloquez votre créativité et exprimez votre univers artistique unique. Un accompagnement personnalisé pour libérer l'artiste en vous.</p>
+        <div class="service-meta">
+          <div class="service-price"><sup>€</sup>90</div>
+          <div class="service-duration">90 min · Visio ou présentiel</div>
+        </div>
+      </article>
+
+      <!-- Tarot -->
+      <article class="service-card reveal" style="grid-column: 1 / -1;">
+        <span class="service-icon">🂠</span>
+        <h3 class="service-name">Tarot de Marseille</h3>
+        <p class="service-desc">Une lecture intuitive et symbolique pour éclairer vos questions — qu'elles touchent un domaine précis ou plusieurs sphères de votre vie.</p>
+        <div class="tarot-options" style="margin-top:1.2rem;">
+          <div class="tarot-option">
+            <h4>Un domaine</h4>
+            <div class="t-price"><sup style="font-size:.9rem">€</sup>40</div>
+            <div class="t-duration">30 min · Visio</div>
+            <a href="https://cal.com" target="_blank" rel="noopener" class="btn-book" style="margin-top:1rem; display:inline-block;">Réserver</a>
+          </div>
+          <div class="tarot-option">
+            <h4>Plusieurs domaines</h4>
+            <div class="t-price"><sup style="font-size:.9rem">€</sup>75</div>
+            <div class="t-duration">60 min · Visio</div>
+            <a href="https://cal.com" target="_blank" rel="noopener" class="btn-book" style="margin-top:1rem; display:inline-block;">Réserver</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Pack -->
+      <article class="service-card featured reveal">
+        <span class="service-badge">Offre signature · 8 mois</span>
+        <h3 class="service-name">Pack Révélation — BaZi, Qi Men, Feng Shui & Coaching</h3>
+        <p class="service-desc">Une transformation complète : décryptez qui vous êtes, harmonisez votre espace, maîtrisez votre timing et libérez votre créativité sur 8 mois d'accompagnement.</p>
+        <div class="featured-grid">
+          <div class="featured-includes">
+            <h4>Ce qui est inclus</h4>
+            <ul>
+              <li>Consultation BaZi approfondie</li>
+              <li>Qi Men Dun Jia prévisionnel</li>
+              <li>Bilan & conseil Feng Shui complet</li>
+              <li>Séances d'Art Coaching</li>
+              <li>Suivi personnalisé sur 8 mois</li>
+              <li>Accès prioritaire aux disponibilités</li>
+            </ul>
+          </div>
+          <div class="featured-price">
+            <div class="big-price"><sup style="font-size:1.2rem">€</sup>990</div>
+            <div class="original">Valeur : 1 120 €</div>
+            <div class="economy">Économie : 130 €</div>
+            <a href="https://cal.com" target="_blank" rel="noopener" class="btn-book">Découvrir le pack</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-inner">
+    <p class="section-label reveal">Mon approche</p>
+    <h2 class="section-title reveal">Comment je travaille</h2>
+    <p class="section-intro reveal">Une méthode rigoureuse, une écoute profonde, des outils ancestraux au service de votre réalité.</p>
+    <div class="process-steps">
+      <div class="step reveal">
+        <h4>Premier contact</h4>
+        <p>Vous réservez en ligne. Je vous envoie un questionnaire préparatoire pour cerner votre situation.</p>
+      </div>
+      <div class="step reveal">
+        <h4>Préparation</h4>
+        <p>J'étudie votre carte, votre espace ou vos questions en amont — chaque consultation est préparée avec soin.</p>
+      </div>
+      <div class="step reveal">
+        <h4>La séance</h4>
+        <p>Une lecture claire, honnête et actionnables. Pas de formules vagues — des repères concrets.</p>
+      </div>
+      <div class="step reveal">
+        <h4>Après la séance</h4>
+        <p>Vous repartez avec un compte-rendu écrit et des pistes d'action adaptées à votre rythme.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner contact-inner">
+    <p class="section-label reveal">Contact</p>
+    <h2 class="section-title reveal">Prêt·e à aller plus loin ?</h2>
+    <p class="section-intro reveal" style="margin:0 auto 1.5rem;">Une question avant de réserver ? Écrivez-moi directement.</p>
+    <a href="mailto:francoise-goudou@gmx.fr" class="contact-email reveal">francoise-goudou@gmx.fr</a>
+    <div class="contact-btns reveal">
+      <a href="https://cal.com" target="_blank" rel="noopener" class="btn-primary">Réserver une consultation</a>
+      <a href="mailto:francoise-goudou@gmx.fr" class="btn-secondary">Envoyer un message</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Françoise Goudou · Tous droits réservés</p>
+  <p>francoise-goudou@gmx.fr</p>
+</footer>
+
+<script>
+  // Burger menu
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
